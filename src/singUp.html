@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogIn</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="login.js"></script>
+</head>
+
+<body>
+    <div class="min-h-screen  bg-gray-200 text-gray-800 antialiased py-6 flex flex-col justify-center sm:py-12">
+        <div class=" relative py-3 sm:w-96 sm:mx-auto text-center">
+            <span class="text-2xl font-light">Sing Up</span>
+            <div class="mt-4 bg-white shadow-md rounded-lg text-left">
+                <div class="min-h-2 bg-purple-200 rounded-t-md">
+                    <div class="px-8 py-6">
+                        <label class="block font-semibold"> New User</label>
+                        <input type="text" placeholder="New Email or Username" id="newEmail"
+                            class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus: outline-none focus:ring-1 focus:ring-black  rounded-md">
+                        <label class="block mt-3 font-semibold"> New Password</label>
+                        <input type="password" placeholder="New Password" id="newPassword"
+                            class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus: outline-none focus:ring-1 focus:ring-black rounded-md">
+                            
+                        <div class="flex justify-between items-baseline">
+                            <button type="submit"
+                                class="mt-4 bg- bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-500"
+                                onclick="create()">
+                                Create
+                            </button>
+                        </div>
+                    </div>
+                    <div id="error1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

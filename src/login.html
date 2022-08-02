@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogIn</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="login.js"></script>
+</head>
+
+<body>
+    <div class="min-h-screen  bg-gray-200 text-gray-800 antialiased py-6 flex flex-col justify-center sm:py-12">
+        <div class=" relative py-3 sm:w-96 sm:mx-auto text-center">
+            <span class="text-2xl font-light">Login to your account</span>
+            <div class="mt-4 bg-white shadow-md rounded-lg text-left">
+                <div class="min-h-2 bg-purple-200 rounded-t-md">
+                    <div class="px-8 py-6">
+                        <label class="block font-semibold"> Usename or Email</label>
+                        <input type="text" placeholder="Email" id="email"
+                            class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus: outline-none focus:ring-1 focus:ring-black  rounded-md">
+                        <label class="block mt-3 font-semibold"> Password</label>
+                        <input type="password" placeholder="Password" id="password"
+                            class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus: outline-none focus:ring-1 focus:ring-black rounded-md">
+                        <div class="flex justify-between items-baseline">
+                            <button type="submit"
+                                class="mt-4 bg- bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-500"
+                                onclick="login()">
+                                Login
+                            </button>
+                            <a href="#" class="text-sm hover:underline" onclick="forgotPassword()">Forgot Password?</a>
+                            <a href="#" class=" text-sm  hover:underline" onclick="singUp()">Sing up now!</a>
+                        </div>
+                    </div>
+                    <div id="error"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
