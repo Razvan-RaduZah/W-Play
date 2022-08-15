@@ -290,6 +290,8 @@ function createDayList() {
       
       selectCat.appendChild(newOption)
 
+  
+
     }
     categoryElement.appendChild(selectCat)
     if (currentTimeEntry) {
