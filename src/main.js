@@ -217,7 +217,7 @@ function createDayList() {
       let actualDayNum = index
 
       let workhour = calculateTime(index)
-      workedElement.innerText = (workhour != undefined) ? workhour + ' h' : ''
+      workedElement.innerText = (workhour != undefined) ? workhour + ' ' : ''
 
       console.log(actualDayNum)
 
@@ -287,10 +287,10 @@ function createDayList() {
       let newOption = document.createElement('option')
       newOption.value = i
       newOption.innerText = arr[i]
-      
+
       selectCat.appendChild(newOption)
 
-  
+
 
     }
     categoryElement.appendChild(selectCat)
@@ -390,17 +390,17 @@ function createDayList() {
     calendarElement.appendChild(workedElement)
 
 
-    let sum1 = workedElement.innerText
-
-
+    let sum1 =  workedElement.innerText
+    console.log("Worked " + workedElement.innerText)
     for (let i = 0; i < sum1.length; i++) {
-      sum += sum1[i]
-
-
-
+    
+      sum+=sum1[i]
+       
     }
+
+
     let remaining = first6Num - sum
-    let first5Str = String(remaining).slice(0, 6)
+    let first5Str = String(remaining).slice(0, 5)
     first5Num = Number(first5Str)
 
   }
@@ -410,9 +410,7 @@ function createDayList() {
   document.getElementById("totalMonthHour").innerText = "Totaly worked in Month : " + " " + sum + ' h'
   console.log('sum ' + sum)
   document.getElementById("diference").innerText = 'Remaining hour to work : ' + first5Num + ' h'
-  let sum2 = [2, 3, 5]
-  // let first4Str = String(sum1).slice(0, 4)
-  //let first4Num = Number(first4Str)
+
 
 
 }
@@ -491,51 +489,4 @@ function calculateTime(index) {
 
   return totalHour
 
-
 }
-
-
-
-
-
-
-
-/*
-      // Generate week day
-      let weekDayElement = document.createElement('div')
-      weekDayElement.innerText = dayOfWeek(date, index)
-      calendarElement.appendChild(weekDayElement)
-  */
-/*
-   let weekDayElement = document.createElement('div')
-   weekDayElement.classList.add('text-lg', 'font-bold')
-   weekDayElement.innerText = 'WD'
-   divElement.appendChild(weekDayElement)
- */
-/*
-       let dayLabelElement = document.createElement('div')
-       dayLabelElement.classList.add('text-lg', 'font-bold', 'block', 'md:hidden')
-       dayLabelElement.innerText = 'Day'
-       calendarElement.appendChild(dayLabelElement)
-   */
-/*
-function open_menu_dropdown2() {
-  var x = document.getElementById("dropdown2");
-  if (x.style.display === "hidden" || x.style.display === "block") {
-    x.style.display = "none";
-  } else {
-    x.style.display = "block";
-  }
-}*/
-/* let xSplit = x.split(':')
-    let ySplit = y.split(':')
-    let hour = parseInt(ySplit[0] - xSplit[0])
-    let min = parseInt(ySplit[1] - xSplit[1])
-    let calc = hour + ':' + min
-    console.log(calc)*/
-
-/*
-   let totalWorkedElement = document.getElementById("totalHour")
-   console.log(" total is = " + totalWorkedElement)
-   workedElement.append(totalWorkedElement)
-*/
