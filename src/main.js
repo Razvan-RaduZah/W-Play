@@ -190,7 +190,7 @@ function createDayList() {
   createTableHeader(calendarElement)
 
   let user = getLoggedInUser()
-  let workHour1 = 0.0
+  let workHour1 = 0
   let sum = 0
   let firstsum = ''
   let first6Num = ''
@@ -285,8 +285,8 @@ function createDayList() {
       let newOption = document.createElement('option')
       newOption.value = i
       newOption.innerText = arr[i]
-
       selectCat.appendChild(newOption)
+
 
     }
     categoryElement.appendChild(selectCat)
@@ -294,6 +294,8 @@ function createDayList() {
       selectCat.selectedIndex = currentTimeEntry.categoryTime
     }
     calendarElement.appendChild(categoryElement)
+
+
 
     // Generate start
     let startLabelElement = document.createElement('div')
@@ -303,15 +305,22 @@ function createDayList() {
 
     let startElement = document.createElement('div')
     let start = document.createElement("input")
+
     start.classList.add('hover:bg-purple-300', 'rounded-lg')
     start.type = "time"
+
     start.id = "start_" + index;
+
     let c2 = document.getElementById("category_" + index).value
-    if (c2 == 3 || c2 == 4 || c2 == 5) {
+
+
+    if (c2 == 0 || c2 == 2 || c2 == 3 || c2 == 4 || c2 == 5) {
       start.disabled = true
       start.classList.add('bg-slate-100')
       start.classList.add('hover:bg-red-400')
+
     }
+
 
     if (currentTimeEntry) {
       start.value = currentTimeEntry.startTime
@@ -331,7 +340,7 @@ function createDayList() {
     let end = document.createElement('input')
     end.id = "end_" + index
     let c1 = document.getElementById("category_" + index).value
-    if (c1 == 3 || c1 == 4 || c1 == 5) {
+    if (c1 == 0 || c1 == 2 || c1 == 3 || c1 == 4 || c1 == 5) {
       end.disabled = true
       end.classList.add('bg-slate-100')
       end.classList.add('hover:bg-red-400')
@@ -359,12 +368,8 @@ function createDayList() {
     selectBreak.id = "break_" + index;
     selectBreak.addEventListener("change", saveData)
     let c3 = document.getElementById("category_" + index).value
-    if (c3 == 3 || c3 == 4 || c3 == 5) {
-      selectBreak.disabled = true
-      selectBreak.classList.add('bg-slate-100')
-      selectBreak.classList.add('hover:bg-red-400')
 
-    }
+
 
     selectBreak.classList.add('hover:bg-purple-300', 'rounded-lg')
 
@@ -376,6 +381,13 @@ function createDayList() {
       newBreak.innerHTML = arrBreakValue[i] > 0 ? arrBreakValue[i] + ' min' : ''
       selectBreak.appendChild(newBreak)
     }
+
+    if (c3 == 0 || c3 == 2 || c3 == 3 || c3 == 4 || c3 == 5) {
+      selectBreak.disabled = true
+      selectBreak.classList.add('bg-slate-100')
+      selectBreak.classList.add('hover:bg-red-400')
+    }
+
     breakElement.appendChild(selectBreak)
     if (currentTimeEntry) {
       selectBreak.selectedIndex = currentTimeEntry.breakTime
@@ -419,11 +431,12 @@ function createDayList() {
   document.getElementById("totalWeekHour").innerText = "Totaly to work in Month : " + first6Num + " h"
   console.log("Totaly to work in Month  " + first6Num + " h")
   document.getElementById("totalMonthHour").innerText = "Totaly worked in Month : " + " " + firstsum + ' h'
-  console.log('sum ' + sum)
+  console.log('sum ' + firstsum)
   document.getElementById("diference").innerText = 'Remaining hour to work : ' + first5Num + ' h'
 
 }
-function sumArray() {
+function reset() {
+  document.getElementById("start_" + index).value = ""
 
 }
 
