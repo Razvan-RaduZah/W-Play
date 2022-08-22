@@ -52,6 +52,7 @@ function initPage() {
   createDayList()
   totalyWorkHour(user)
   timeFunction()
+
 }
 
 let date = new Date();
@@ -168,7 +169,6 @@ function dailyWorkingHour(year_month, day) {
   return dailyWorkingHour[(currentDay.getDay() + 6) % 7]
 }
 
-
 function generateTimeEntryKey(user, year, month, day) {
   return user.user + ":" + year + "/" + month + "/" + day + "/"
 }
@@ -181,7 +181,6 @@ function loadTimeEntry(user, year, month, day) {
 }
 
 
-
 function createDayList() {
   let lastDay1 = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
 
@@ -191,8 +190,9 @@ function createDayList() {
   createTableHeader(calendarElement)
 
   let user = getLoggedInUser()
-  let workHour1 = 0
-  let sum = ''
+  let workHour1 = 0.0
+  let sum = 0
+  let firstsum = ''
   let first6Num = ''
   let first5Num = ''
   for (let index = 1; index <= lastDay1; index++) {
@@ -239,11 +239,9 @@ function createDayList() {
         categoryTime: categoryTime
       }
 
-
       console.log(value)
 
       localStorage.setItem(key, JSON.stringify(value))
-
 
     }
 
@@ -281,7 +279,7 @@ function createDayList() {
     selectCat.addEventListener("change", saveData)
     selectCat.classList.add('hover:bg-purple-300', 'rounded-lg')
 
-    let arr = ['', 'Work', 'Day Off', 'Holiday', 'Illnes', 'Business Travel']
+    let arr = ['', 'Work', 'Day Off', 'Holiday', 'Illnes', 'Travel']
 
     for (let i = 0; i < arr.length; i++) {
       let newOption = document.createElement('option')
@@ -289,8 +287,6 @@ function createDayList() {
       newOption.innerText = arr[i]
 
       selectCat.appendChild(newOption)
-
-
 
     }
     categoryElement.appendChild(selectCat)
@@ -310,15 +306,18 @@ function createDayList() {
     start.classList.add('hover:bg-purple-300', 'rounded-lg')
     start.type = "time"
     start.id = "start_" + index;
-
+    let c2 = document.getElementById("category_" + index).value
+    if (c2 == 3 || c2 == 4 || c2 == 5) {
+      start.disabled = true
+      start.classList.add('bg-slate-100')
+      start.classList.add('hover:bg-red-400')
+    }
 
     if (currentTimeEntry) {
       start.value = currentTimeEntry.startTime
     }
     start.addEventListener("change", saveData)
     startElement.appendChild(start)
-
-
 
     calendarElement.appendChild(startElement)
 
@@ -331,11 +330,16 @@ function createDayList() {
     let endElement = document.createElement('div')
     let end = document.createElement('input')
     end.id = "end_" + index
+    let c1 = document.getElementById("category_" + index).value
+    if (c1 == 3 || c1 == 4 || c1 == 5) {
+      end.disabled = true
+      end.classList.add('bg-slate-100')
+      end.classList.add('hover:bg-red-400')
+    }
 
     if (currentTimeEntry) {
       end.value = currentTimeEntry.endTime
     }
-
 
     end.addEventListener("change", saveData)
     end.classList.add('hover:bg-purple-300', 'rounded-lg')
@@ -354,6 +358,13 @@ function createDayList() {
     let selectBreak = document.createElement('select')
     selectBreak.id = "break_" + index;
     selectBreak.addEventListener("change", saveData)
+    let c3 = document.getElementById("category_" + index).value
+    if (c3 == 3 || c3 == 4 || c3 == 5) {
+      selectBreak.disabled = true
+      selectBreak.classList.add('bg-slate-100')
+      selectBreak.classList.add('hover:bg-red-400')
+
+    }
 
     selectBreak.classList.add('hover:bg-purple-300', 'rounded-lg')
 
@@ -373,6 +384,7 @@ function createDayList() {
     calendarElement.appendChild(breakElement)
 
     //Generate Worked Hour
+
     let workhour = calculateTime(index)
     let workedLabelElement = document.createElement('div')
     workedLabelElement.classList.add('text-lg', 'font-bold', 'block', 'md:hidden')
@@ -389,15 +401,14 @@ function createDayList() {
     }
     calendarElement.appendChild(workedElement)
 
+    let sum1 = workedElement.innerText
+    console.log("Worked " + sum1)
 
-    let sum1 =  workedElement.innerText
-    console.log("Worked " + workedElement.innerText)
-    for (let i = 0; i < sum1.length; i++) {
-    
-      sum+=sum1[i]
-       
+    if (sum1.length > 0) {
+      sum += parseFloat(sum1)
     }
-
+    let first6sum = String(sum).slice(0, 5)
+    firstsum = Number(first6sum)
 
     let remaining = first6Num - sum
     let first5Str = String(remaining).slice(0, 5)
@@ -407,17 +418,16 @@ function createDayList() {
 
   document.getElementById("totalWeekHour").innerText = "Totaly to work in Month : " + first6Num + " h"
   console.log("Totaly to work in Month  " + first6Num + " h")
-  document.getElementById("totalMonthHour").innerText = "Totaly worked in Month : " + " " + sum + ' h'
+  document.getElementById("totalMonthHour").innerText = "Totaly worked in Month : " + " " + firstsum + ' h'
   console.log('sum ' + sum)
   document.getElementById("diference").innerText = 'Remaining hour to work : ' + first5Num + ' h'
 
-
+}
+function sumArray() {
 
 }
 
-
 function createTableHeader(divElement) {
-
 
   let dayNumElement = document.createElement('div')
   dayNumElement.classList.add('text-lg', 'font-bold', 'hidden', 'md:block')
@@ -451,9 +461,6 @@ function createTableHeader(divElement) {
   WorkedElement.innerText = 'Worked'
   divElement.appendChild(WorkedElement)
 
-
-
-
 }
 
 function calculateTime(index) {
@@ -470,7 +477,6 @@ function calculateTime(index) {
     return
   }
 
-
   let timeS = new Date(0, 0, 0, parseInt(matcheS[1]), parseInt(matcheS[2]))
 
   let matcheE = y.match(/(\d{1,2}):(\d{2})/)
@@ -483,9 +489,7 @@ function calculateTime(index) {
   let total = ((timeE - timeS) / 60000) - breakTime
   let totalHour = Math.round((total / 60 + Number.EPSILON) * 100) / 100
 
-
   console.log("Total Hour/ Day = " + totalHour)
-
 
   return totalHour
 
