@@ -394,6 +394,7 @@ function createDayList() {
       selectBreak.classList.add('hover:bg-red-400')
 
     }
+    
 
     breakElement.appendChild(selectBreak)
     if (currentTimeEntry) {
@@ -433,11 +434,13 @@ function createDayList() {
     if (sum1.length > 0) {
       sum += parseFloat(sum1)
     }
+    
 
     let first6sum = String(sum).slice(0, 5)
     firstsum = Number(first6sum)
     workedElement.addEventListener("click", refreshPage)
-    let remaining = first6Num - sum
+
+    let remaining = first6Num- sum
     let first5Str = String(remaining).slice(0, 5)
     first5Num = Number(first5Str)
 
@@ -446,6 +449,7 @@ function createDayList() {
   document.getElementById("totalWeekHour").innerText = "Totaly to work in Month : " + first6Num + " h"
   console.log("Totaly to work in Month  " + first6Num + " h")
   document.getElementById("totalMonthHour").innerText = "Totaly worked in Month : " + " " + firstsum + ' h'
+ 
   console.log('sum ' + firstsum)
   document.getElementById("diference").innerText = 'Remaining hour to work : ' + first5Num + ' h'
 
@@ -514,7 +518,7 @@ function calculateTime(index) {
   let totalHour = Math.round((total / 60 + Number.EPSILON) * 100) / 100
 
   console.log("Total Hour/ Day = " + totalHour)
-
+  
   return totalHour
 
 }
