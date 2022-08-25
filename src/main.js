@@ -267,21 +267,21 @@ function createDayList() {
     pElement.innerText = index
     dayNumElement.appendChild(pElement)
     calendarElement.appendChild(dayNumElement)
-
+    let refreshPage = () => {
+      location.reload();
+    }
     // Generate Category
     let catLabelElement = document.createElement('div')
     catLabelElement.classList.add('text-lg', 'font-bold', 'block', 'md:hidden')
     catLabelElement.innerText = 'Category'
     calendarElement.appendChild(catLabelElement)
-
+    catLabelElement.addEventListener("change", refreshPage)
     let categoryElement = document.createElement('div')
     let selectCat = document.createElement('select')
     selectCat.id = "category_" + index
     selectCat.addEventListener("change", saveData)
     selectCat.classList.add('hover:bg-purple-300', 'rounded-lg')
-    let refreshPage = () => {
-      location.reload();
-    }
+
 
 
     let arr = ['', 'Work', 'Day Off', 'Holiday', 'Illnes', 'Travel']
