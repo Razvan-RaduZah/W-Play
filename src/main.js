@@ -237,6 +237,7 @@ function createDayList() {
         endTime: endTime,
         breakTime: break1Time,
         categoryTime: categoryTime
+
       }
 
       console.log(value)
@@ -278,6 +279,10 @@ function createDayList() {
     selectCat.id = "category_" + index
     selectCat.addEventListener("change", saveData)
     selectCat.classList.add('hover:bg-purple-300', 'rounded-lg')
+    let refreshPage = () => {
+      location.reload();
+    }
+
 
     let arr = ['', 'Work', 'Day Off', 'Holiday', 'Illnes', 'Travel']
 
@@ -286,18 +291,16 @@ function createDayList() {
       newOption.value = i
       newOption.innerText = arr[i]
       selectCat.appendChild(newOption)
-
-
     }
+    selectCat.addEventListener('change', refreshPage)
     categoryElement.appendChild(selectCat)
     if (currentTimeEntry) {
       selectCat.selectedIndex = currentTimeEntry.categoryTime
     }
     calendarElement.appendChild(categoryElement)
 
-
-
     // Generate start
+
     let startLabelElement = document.createElement('div')
     startLabelElement.classList.add('text-lg', 'font-bold', 'block', 'md:hidden')
     startLabelElement.innerText = 'Start'
@@ -318,6 +321,9 @@ function createDayList() {
       start.disabled = true
       start.classList.add('bg-slate-100')
       start.classList.add('hover:bg-red-400')
+      if (start.disabled == true) {
+        start.addEventListener('change', saveData)
+      }
 
     }
 
@@ -386,6 +392,7 @@ function createDayList() {
       selectBreak.disabled = true
       selectBreak.classList.add('bg-slate-100')
       selectBreak.classList.add('hover:bg-red-400')
+
     }
 
     breakElement.appendChild(selectBreak)
@@ -394,6 +401,13 @@ function createDayList() {
     }
 
     calendarElement.appendChild(breakElement)
+
+    let cat = document.getElementById("category_" + index).value
+    if (cat == 0 || cat == 2 || cat == 3 || cat == 4 || cat == 5) {
+      document.getElementById("start_" + index).value = ''
+      document.getElementById("end_" + index).value = ''
+      document.getElementById("break_" + index).value = ''
+    }
 
     //Generate Worked Hour
 
@@ -419,9 +433,10 @@ function createDayList() {
     if (sum1.length > 0) {
       sum += parseFloat(sum1)
     }
+
     let first6sum = String(sum).slice(0, 5)
     firstsum = Number(first6sum)
-
+    workedElement.addEventListener("click", refreshPage)
     let remaining = first6Num - sum
     let first5Str = String(remaining).slice(0, 5)
     first5Num = Number(first5Str)
@@ -433,10 +448,6 @@ function createDayList() {
   document.getElementById("totalMonthHour").innerText = "Totaly worked in Month : " + " " + firstsum + ' h'
   console.log('sum ' + firstsum)
   document.getElementById("diference").innerText = 'Remaining hour to work : ' + first5Num + ' h'
-
-}
-function reset() {
-  document.getElementById("start_" + index).value = ""
 
 }
 
